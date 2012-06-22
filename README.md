@@ -13,4 +13,6 @@ The web pages shows the top users for the following categories:
 The charts are created using the library D3.JS and it will be only viewable in modern
 web browsers like Firefox or Chrome.
 
+You can check a running example [here](http://www.citizencyberscience.net/t4t-webapp/stats/)
+
 License GPLv3 for the top5.js script.
