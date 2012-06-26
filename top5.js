@@ -114,8 +114,8 @@
               }
 
               var padding = 65;
-              //var padding = 0;
 
+              var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
 
               var comma = d3.format(",s.2g");
               var rounded = d3.format(".2r");
@@ -152,10 +152,13 @@
 
               chartNEvents.selectAll(".xlabel")
                   .data(idEvent)
-                  .enter().append("text")
+                  .enter().append("svg:a")
+                  .attr("xlink:xlink:href", function(d){return boinc_api+d})
+                  .append("text")
                   .attr("y",function(d) { return 40 +  y(d) + y.rangeBand()/2;})
                   .attr("dx", 3)
                   .attr("dy", ".35em")
+                  .attr("xlink:xlink:href", "http://www.google.es")
                   .text(function(d){ return "ID: " + d})
 
               chartNEvents.selectAll("line")
@@ -214,7 +217,9 @@
 
               chartNGoodJobs.selectAll(".xlabel")
                   .data(idGoodJobs)
-                  .enter().append("text")
+                  .enter().append("svg:a")
+                  .attr("xlink:xlink:href", function(d){return boinc_api+d})
+                  .append("text")
                   .attr("y",function(d) { return 40 +  y(d) + y.rangeBand()/2;})
                   .attr("dx", 3)
                   .attr("dy", ".35em")
@@ -281,7 +286,9 @@
 
               chartCpuTime.selectAll(".xlabel")
                   .data(idCpuTime)
-                  .enter().append("text")
+                  .enter().append("svg:a")
+                  .attr("xlink:xlink:href", function(d){return boinc_api+d})
+                  .append("text")
                   .attr("y",function(d) { return 40 +  y(d) + y.rangeBand()/2;})
                   .attr("dx", 3)
                   .attr("dy", ".35em")
