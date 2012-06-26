@@ -36,14 +36,6 @@
         .append("g")
             .attr("transform", "translate(10,15)");
 
-    var chartNJobs = d3.select("#njobs")
-        .append("svg")
-        .attr("class", "chartCpuTime")
-        .attr("width", width + padding)
-        .attr("height", height + padding)
-        .append("g")
-            .attr("transform", "translate(10,15)");
-
     var chartNGoodJobs = d3.select("#ngoodjobs")
         .append("svg")
         .attr("class", "chartCpuTime")
@@ -85,33 +77,28 @@
               // Pair of values
               var ci   = [];
               var ei   = [];
-              var ji     = [];
               var gji = [];
 
               // Sorted IDs for each type
               var idEvent = [];
               var idCpuTime = [];
-              var idJobs = [];
               var idGoodJobs = [];
 
               // Sorted values for each type
               var cpuTime   = [];
               var nEvents   = [];
-              var nJobs     = [];
               var nGoodJobs = [];
               
               for (i=0; i< length; i++) {
                   if (( topUsers[i].user_id != null ) && ( topUsers[i].user_id != 0 )) {
                       ci.push([ topUsers[i].cpu_time, topUsers[i].user_id ]);
                       ei.push([ topUsers[i].n_events, topUsers[i].user_id ]);
-                      ji.push([ topUsers[i].n_jobs, topUsers[i].user_id ]);
                       gji.push([ topUsers[i].n_good_jobs, topUsers[i].user_id ]);
                   }
               
               }
               ci.sort( ascending ).reverse();
               ei.sort( ascending ).reverse();
-              ji.sort( ascending ).reverse();
               gji.sort( ascending ).reverse();
 
               var l = ci.length;
@@ -121,9 +108,6 @@
 
                   idCpuTime.push(ci[i][1]);
                   cpuTime.push(ci[i][0]);
-
-                  idJobs.push(ji[i][1]);
-                  nJobs.push(ji[i][0]);
 
                   idGoodJobs.push(gji[i][1]);
                   nGoodJobs.push(gji[i][0]);
@@ -191,68 +175,6 @@
                   .text(function(d){return comma(d);});
 
               chartNEvents.append("line")
-                  .attr("x1", padding)
-                  .attr("x2", padding)
-                  .attr("y1", 40)
-                  .attr("y2", 40 + (length -2) * 20)
-                  .style("stroke", "#000");
-
-              var x = d3.scale.linear()
-                  .domain([0, d3.max(nJobs)])
-                  .range([padding,width]);
-
-              var y = d3.scale.ordinal()
-                  .domain(nJobs)
-                  .rangeBands([0, 20 * (length - 2)]);
-
-              chartNJobs.selectAll("rect")
-                  .data(nJobs)
-                  .enter().append("rect")
-                  .style("stroke", "white")
-                  .style("fill", function (d,i) {return colors(i);})
-                  .attr("y", function(d,i) { return 40 +(i * 20);})
-                  .attr("x", padding)
-                  .attr("width", x)
-                  .attr("height", y.rangeBand())
-
-              chartNJobs.selectAll("text")
-                  .data(nJobs)
-                  .enter().append("text")
-                  .attr("x", x)
-                  .attr("y", function(d) { return 40 +  y(d) + y.rangeBand()/2;})
-                  .attr("dx", -3)
-                  .attr("dy", ".35em")
-                  .attr("text-anchor", "end")
-                  .style("fill", "white")
-                  .text(function(d){return comma(d);});
-
-              chartNJobs.selectAll(".xlabel")
-                  .data(idJobs)
-                  .enter().append("text")
-                  .attr("y",function(d) { return 40 +  y(d) + y.rangeBand()/2;})
-                  .attr("dx", 3)
-                  .attr("dy", ".35em")
-                  .text(function(d){ return "ID: " + d})
-
-              chartNJobs.selectAll("line")
-                  .data(x.ticks(5))
-                  .enter().append("line")
-                  .attr("x1", x )
-                  .attr("x2", x )
-                  .attr("y1", 0 + 40)
-                  .attr("y2", 40 + 20 * (length -2))
-                  .style("stroke", "#ccc");
-
-              chartNJobs.selectAll(".rule")
-                  .data(x.ticks(5))
-                  .enter().append("text")
-                  .attr("x", x)
-                  .attr("y", 0)
-                  .attr("dy", 38)
-                  .attr("text-anchor", "middle")
-                  .text(function(d){return comma(d);});
-
-              chartNJobs.append("line")
                   .attr("x1", padding)
                   .attr("x2", padding)
                   .attr("y1", 40)
