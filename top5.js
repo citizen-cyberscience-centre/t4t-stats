@@ -116,7 +116,8 @@
               var padding = 65;
 
 
-              var comma = d3.format(",s");
+              var comma = d3.format(",s.2g");
+              var rounded = d3.format(".2r");
 
 
               var x = d3.scale.linear()
@@ -251,7 +252,6 @@
                   .domain(cpuTime)
                   .rangeBands([0, 20 * (length - 2)]);
 
-
               chartCpuTime.selectAll("rect")
                   .data(cpuTime)
                   .enter().append("rect")
@@ -272,7 +272,11 @@
                   .attr("dy", ".35em")
                   .attr("text-anchor", "end")
                   .style("fill", "white")
-                  .text(function(d){ return comma(d);});
+                  .text(function(d){ 
+                      var months = 0;
+                      months = d/(2628000);
+                      return rounded(months)+"M";
+                  });
 
               chartCpuTime.selectAll(".xlabel")
                   .data(idCpuTime)
@@ -298,7 +302,11 @@
                   .attr("y", 0)
                   .attr("dy", 38)
                   .attr("text-anchor", "middle")
-                  .text(function(d){return comma(d);});
+                  .text(function(d){
+                      var months = 0;
+                      months = d/(2628000);
+                      return rounded(months)+"M";
+                      });
 
               chartCpuTime.append("line")
                   .attr("x1", padding)
