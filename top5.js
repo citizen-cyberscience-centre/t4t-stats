@@ -114,6 +114,7 @@
               }
 
               var padding = 65;
+              //var padding = 0;
 
 
               var comma = d3.format(",s.2g");
@@ -135,7 +136,7 @@
                   .style("fill", function (d,i) {return colors(i);})
                   .attr("y", function(d,i) { return 40 +(i * 20);})
                   .attr("x", padding)
-                  .attr("width", x)
+                  .attr("width", function(d){ return (x(d) - padding)})
                   .attr("height", y.rangeBand())
 
               chartNEvents.selectAll("text")
@@ -197,7 +198,7 @@
                   .style("fill", function (d,i) {return colors(i);})
                   .attr("y", function(d,i) { return 40 +(i * 20);})
                   .attr("x", padding)
-                  .attr("width", x)
+                  .attr("width", function(d){ return (x(d) - padding)})
                   .attr("height", y.rangeBand())
 
               chartNGoodJobs.selectAll("text")
@@ -259,7 +260,7 @@
                   .style("fill", function (d,i) {return colors(i);})
                   .attr("y", function(d,i) { return 40 +(i * 20);})
                   .attr("x", padding)
-                  .attr("width", x)
+                  .attr("width", function(d){ return (x(d) - padding)})
                   .attr("height", y.rangeBand())
 
               chartCpuTime.selectAll("text")
@@ -275,7 +276,7 @@
                   .text(function(d){ 
                       var months = 0;
                       months = d/(2628000);
-                      return rounded(months)+"M";
+                      return rounded(months)+"m";
                   });
 
               chartCpuTime.selectAll(".xlabel")
@@ -305,7 +306,7 @@
                   .text(function(d){
                       var months = 0;
                       months = d/(2628000);
-                      return rounded(months)+"M";
+                      return rounded(months);
                       });
 
               chartCpuTime.append("line")
@@ -314,7 +315,6 @@
                   .attr("y1", 40)
                   .attr("y2", 40 + (length -2) * 20)
                   .style("stroke", "#000");
-
 
           });
 
