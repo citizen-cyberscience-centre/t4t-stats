@@ -16,6 +16,7 @@
 
 (function ( top5, $, undefined ) {
     var url = encodeURI("http://mcplots-dev.cern.ch/api.php?");
+    var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
     var width = 720;
     var height = 430;
     var padding = 10;
@@ -52,6 +53,13 @@
             url: url + "top_users=20",
             dataType: 'json',
             })
+    }
+
+    function getName(id) {
+        return $.ajax({
+            url: boinc_api + id + "&format=xml",
+               dataType: 'xml',
+        });
     }
 
     function getTotals() {
@@ -115,7 +123,6 @@
 
               var padding = 65;
 
-              var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
 
               var comma = d3.format(",s.2g");
               var rounded = d3.format(".2r");
@@ -150,16 +157,41 @@
                   .style("fill", "white")
                   .text(function(d){ return comma(d);});
 
-              chartNEvents.selectAll(".xlabel")
-                  .data(idEvent)
-                  .enter().append("svg:a")
-                  .attr("xlink:xlink:href", function(d){return boinc_api+d})
-                  .append("text")
-                  .attr("y",function(d) { return 40 +  y(d) + y.rangeBand()/2;})
-                  .attr("dx", 3)
-                  .attr("dy", ".35em")
-                  .attr("xlink:xlink:href", "http://www.google.es")
-                  .text(function(d){ return "ID: " + d})
+              var i=0;
+              var l=idEvent.length;
+              var nameEvent = [];
+
+              for(i=0;i<l;i++){
+                 var promise = getName(idEvent[i]); 
+                 var id = idEvent[i];
+
+                 var yEvent = d3.scale.ordinal()
+                     .domain(idEvent)
+                     .rangeBands([0, 20 * (length - 2)]);
+
+                 promise.success( function(user) { 
+
+                     var n = $(user).find('name').text();
+                     chartNEvents
+                      .append("svg:a")
+                      .attr("xlink:xlink:href", function(){ 
+                          var url = boinc_api + $(user).find('id').text();
+                          return url; })
+                      .append("text")
+                      .attr("y",function() { 
+                          var id = parseInt( $(user).find('id').text());
+                          return 40 +  yEvent(id) + yEvent.rangeBand()/2;})
+                      .attr("dx", 3)
+                      .attr("dy", ".35em")
+                      .text(function() {
+                          if ( n.length > 6 ) {
+                              return n.substring(0,6) + "...";
+                          }
+                          else 
+                            return n
+                      })
+                 });
+              }
 
               chartNEvents.selectAll("line")
                   .data(x.ticks(5))
@@ -215,15 +247,40 @@
                   .style("fill", "white")
                   .text(function(d){return comma(d);});
 
-              chartNGoodJobs.selectAll(".xlabel")
-                  .data(idGoodJobs)
-                  .enter().append("svg:a")
-                  .attr("xlink:xlink:href", function(d){return boinc_api+d})
-                  .append("text")
-                  .attr("y",function(d) { return 40 +  y(d) + y.rangeBand()/2;})
-                  .attr("dx", 3)
-                  .attr("dy", ".35em")
-                  .text(function(d){ return "ID: " + d})
+
+              var i=0;
+              var l=idEvent.length;
+
+              for(i=0;i<l;i++){
+                 var promise = getName(idGoodJobs[i]); 
+
+                 var yGoodJobs = d3.scale.ordinal()
+                     .domain(idGoodJobs)
+                     .rangeBands([0, 20 * (length - 2)]);
+
+                 promise.success( function(user) { 
+
+                     var n = $(user).find('name').text();
+                     chartNGoodJobs
+                      .append("svg:a")
+                      .attr("xlink:xlink:href", function(){ 
+                          var url = boinc_api + $(user).find('id').text();
+                          return url; })
+                      .append("text")
+                      .attr("y",function() { 
+                          var id = parseInt( $(user).find('id').text());
+                          return 40 +  yGoodJobs(id) + yGoodJobs.rangeBand()/2;})
+                      .attr("dx", 3)
+                      .attr("dy", ".35em")
+                      .text(function() {
+                          if ( n.length > 6 ) {
+                              return n.substring(0,6) + "...";
+                          }
+                          else 
+                            return n
+                      })
+                 });
+              }
 
               chartNGoodJobs.selectAll("line")
                   .data(x.ticks(5))
@@ -284,15 +341,39 @@
                       return rounded(months)+"m";
                   });
 
-              chartCpuTime.selectAll(".xlabel")
-                  .data(idCpuTime)
-                  .enter().append("svg:a")
-                  .attr("xlink:xlink:href", function(d){return boinc_api+d})
-                  .append("text")
-                  .attr("y",function(d) { return 40 +  y(d) + y.rangeBand()/2;})
-                  .attr("dx", 3)
-                  .attr("dy", ".35em")
-                  .text(function(d){ return "ID: " + d})
+              var i=0;
+              var l=idEvent.length;
+
+              for(i=0;i<l;i++){
+                 var promise = getName(idCpuTime[i]); 
+
+                 var yCpuTime = d3.scale.ordinal()
+                     .domain(idCpuTime)
+                     .rangeBands([0, 20 * (length - 2)]);
+
+                 promise.success( function(user) { 
+
+                     var n = $(user).find('name').text();
+                     chartCpuTime
+                      .append("svg:a")
+                      .attr("xlink:xlink:href", function(){ 
+                          var url = boinc_api + $(user).find('id').text();
+                          return url; })
+                      .append("text")
+                      .attr("y",function() { 
+                          var id = parseInt( $(user).find('id').text());
+                          return 40 +  yCpuTime(id) + yCpuTime.rangeBand()/2;})
+                      .attr("dx", 3)
+                      .attr("dy", ".35em")
+                      .text(function() {
+                          if ( n.length > 6 ) {
+                              return n.substring(0,6) + "...";
+                          }
+                          else 
+                            return n
+                      })
+                 });
+              }
 
               chartCpuTime.selectAll("line")
                   .data(x.ticks(5))
