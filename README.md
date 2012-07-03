@@ -8,10 +8,14 @@ The web pages shows the top users for the following categories:
   * Number of events
   * Number of jobs (total ammount, including good and bad ones)
   * Number of good jobs
-  * Nominal CPU time (in seconds)
+  * Nominal CPU time (in months)
 
 The charts are created using the library D3.JS and it will be only viewable in modern
 web browsers like Firefox or Chrome.
+
+The user will see a welcome modal the first time he visits the site. This
+modal will be hidden for a week, as a cookie is created to dismiss the
+modal for the next visits (jquery-cookie plugin by Klaus Hartl).
 
 You can check a running example [here](http://www.citizencyberscience.net/t4t-webapp/stats/)
 
