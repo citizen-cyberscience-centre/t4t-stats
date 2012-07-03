@@ -6,15 +6,39 @@
     
         <title>Leaderboard of Test4Theory</title>
     <!-- Le styles -->
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- Le javascript-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="d3.v2.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="assets/js/d3.v2.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
     </head>
     <body>
     <div class="container" style="padding-top:50px;">
+        <div id="welcome" class="modal hide fade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3>Welcome to the Test4Theory Leaderboard!</h3>
+            </div>
+            <div class="modal-body">
+                <p>This leaderboard lists the users who are contributing more simulations and jobs in Test4Theory.</p>
+                <p>The leaderboard shorts user's stats according to:
+                  <ul>
+                      <li>Number of events</li>
+                      <li>Number of processed jobs, and</li>
+                      <li>Nominal CPU time (in months)</li>
+                  </ul>
+                </p>
+                <p>The charts only include the top contributors, so you may not find yourself in it.</p>
+                <p>In order to check these values for your account, check your Profile page in the Test4Theory project.</p>
+                <p><span class="label label-info"><i class="icon icon-white icon-bullhorn"></i> Info</span> The Leaderboard is in <strong>beta mode</strong> and some users and/or hosts are not listed properly due to some bugs that we are investigating (minimum BOINC version >= 6.12).</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success" data-dismiss="modal"><i class="icon icon-white icon-ok"></i> Close</a>
+            </div>
+        </div>
         <div class="row">
             <h1 style="text-align:center;padding-bottom:50px;">Leaderboard of Test4Theory</h1>
             <div class="span12 well">
@@ -36,6 +60,7 @@
         </div>
     </div>
             <!-- Le results -->
-    <script src="top5.js" type="text/javascript"></script>
+    <script src="assets/js/top5.js" type="text/javascript"></script>
+    <script src="assets/js/warning.js" type="text/javascript"></script>
     </body>
 </html>
