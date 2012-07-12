@@ -134,7 +134,7 @@
 
               var y = d3.scale.ordinal()
                   .domain(nEvents)
-                  .rangeBands([0, 20 * (length - 2)]);
+                  .rangeBands([0, 20 * (length - 1)]);
 
               chartNEvents.selectAll("rect")
                   .data(nEvents)
@@ -167,7 +167,7 @@
 
                  var yEvent = d3.scale.ordinal()
                      .domain(idEvent)
-                     .rangeBands([0, 20 * (length - 2)]);
+                     .rangeBands([0, 20 * (length - 1)]);
 
                  promise.success( function(user) { 
 
@@ -199,7 +199,7 @@
                   .attr("x1", x )
                   .attr("x2", x )
                   .attr("y1", 0 + 40)
-                  .attr("y2", 40 + 20 * (length -2))
+                  .attr("y2", 40 + 20 * (length -1))
                   .style("stroke", "#ccc");
 
               chartNEvents.selectAll(".rule")
@@ -215,7 +215,7 @@
                   .attr("x1", padding)
                   .attr("x2", padding)
                   .attr("y1", 40)
-                  .attr("y2", 40 + (length -2) * 20)
+                  .attr("y2", 40 + (length -1) * 20)
                   .style("stroke", "#000");
 
               var x = d3.scale.linear()
@@ -224,7 +224,7 @@
 
               var y = d3.scale.ordinal()
                   .domain(nGoodJobs)
-                  .rangeBands([0, 20 * (length - 2)]);
+                  .rangeBands([0, 20 * (length - 1)]);
 
               chartNGoodJobs.selectAll("rect")
                   .data(nGoodJobs)
@@ -256,7 +256,7 @@
 
                  var yGoodJobs = d3.scale.ordinal()
                      .domain(idGoodJobs)
-                     .rangeBands([0, 20 * (length - 2)]);
+                     .rangeBands([0, 20 * (length - 1)]);
 
                  promise.success( function(user) { 
 
@@ -288,7 +288,7 @@
                   .attr("x1", x )
                   .attr("x2", x )
                   .attr("y1", 0 + 40)
-                  .attr("y2", 40 + 20 * (length -2))
+                  .attr("y2", 40 + 20 * (length -1))
                   .style("stroke", "#ccc");
 
               chartNGoodJobs.selectAll(".rule")
@@ -304,7 +304,7 @@
                   .attr("x1", padding)
                   .attr("x2", padding)
                   .attr("y1", 40)
-                  .attr("y2", 40 + (length -2) * 20)
+                  .attr("y2", 40 + (length -1) * 20)
                   .style("stroke", "#000");
 
               var x = d3.scale.linear()
@@ -313,7 +313,7 @@
 
               var y = d3.scale.ordinal()
                   .domain(cpuTime)
-                  .rangeBands([0, 20 * (length - 2)]);
+                  .rangeBands([0, 20 * (length - 1)]);
 
               chartCpuTime.selectAll("rect")
                   .data(cpuTime)
@@ -349,7 +349,7 @@
 
                  var yCpuTime = d3.scale.ordinal()
                      .domain(idCpuTime)
-                     .rangeBands([0, 20 * (length - 2)]);
+                     .rangeBands([0, 20 * (length - 1)]);
 
                  promise.success( function(user) { 
 
@@ -381,7 +381,7 @@
                   .attr("x1", x )
                   .attr("x2", x )
                   .attr("y1", 0 + 40)
-                  .attr("y2", 40 + 20 * (length -2))
+                  .attr("y2", 40 + 20 * (length -1))
                   .style("stroke", "#ccc");
 
               chartCpuTime.selectAll(".rule")
@@ -401,7 +401,7 @@
                   .attr("x1", padding)
                   .attr("x2", padding)
                   .attr("y1", 40)
-                  .attr("y2", 40 + (length -2) * 20)
+                  .attr("y2", 40 + (length -1) * 20)
                   .style("stroke", "#000");
 
           });
