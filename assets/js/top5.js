@@ -125,7 +125,7 @@
 
 
               var comma = d3.format("2.3s");
-              var comma_r = d3.format("2.1s");
+              var comma_r = d3.format("2.2s");
               var rounded = d3.format(".2r");
 
 
