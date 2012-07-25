@@ -124,7 +124,7 @@
               var padding = 65;
 
 
-              var comma = d3.format(",s.2g");
+              var comma = d3.format("2.3s");
               var rounded = d3.format(".2r");
 
 
