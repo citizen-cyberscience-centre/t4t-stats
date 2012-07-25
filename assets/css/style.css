@@ -1,0 +1,31 @@
+body {
+  padding-top: 60px;
+}
+
+/* we do not have a LH sidebar */
+.container-fluid > .content {
+  margin-left: 0;
+}
+
+.recline-grid-container {
+  height: 400px;
+}
+
+.recline-timeline .vmm-timeline {
+  height: 400px;
+}
+
+.vmm-timeline p {
+  font-size: 14px;
+}
+
+#throbber {
+    padding: 10px;
+    position:absolute;
+    left: 50%;
+    top:50%;
+    margin: -50px 0 0 -50px;
+    z-index: 10000;
+    width: 100px;
+    height: 100px;
+}
