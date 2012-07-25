@@ -5065,9 +5065,9 @@ if (typeof VMM.Slider != 'undefined') {
 						}
 						
 						if (st != en) {
-							c.text += VMM.createElement("h2", st + " &mdash; " + en + tag, "date");
+							c.text += VMM.createElement("h2", "On " + st + " &mdash; " + en + tag, "date");
 						} else {
-							c.text += VMM.createElement("h2", st + tag, "date");
+							c.text += VMM.createElement("h2", "On " + st + tag, "date");
 						}
 					}
 				}

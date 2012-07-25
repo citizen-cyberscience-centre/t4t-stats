@@ -102,7 +102,7 @@ jQuery(function($) {
             });
 
             $.map(users, function(u){
-                var html = '<strong style="font-size:20px"> joins the Billionaires Club</strong> <i class="icon-group" style="font-size:24px; padding-left:5px;"></i><br/>';
+                var html = '<strong style="font-size:20px"> joined the Billionaires Club</strong> <i class="icon-group" style="font-size:24px; padding-left:5px;"></i><br/>';
                 html += '<br/>';
                 html += '<i class="icon-dashboard" style="font-size:18px"></i>   <strong style="font-size:18px; padding-left:5px;"> Current Contributions</strong><br/>';
                 html += "<strong>Number of Events: </strong>" + comma(u.n_events) + "<br/>";
