@@ -17,9 +17,9 @@
 (function ( top5, $, undefined ) {
     var url = encodeURI("http://mcplots-dev.cern.ch/api.php?");
     var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
-    var width = 720;
+    var width = 700;
     var height = 430;
-    var padding = 10;
+    var padding = 20;
 
     var chartCpuTime = d3.select("#cputime")
         .append("svg")
@@ -125,6 +125,7 @@
 
 
               var comma = d3.format("2.3s");
+              var comma_r = d3.format("2.1s");
               var rounded = d3.format(".2r");
 
 
@@ -207,9 +208,10 @@
                   .enter().append("text")
                   .attr("x", x)
                   .attr("y", 0)
+                  //.attr("dx", -5)
                   .attr("dy", 38)
                   .attr("text-anchor", "middle")
-                  .text(function(d){return comma(d);});
+                  .text(function(d){return comma_r(d);});
 
               chartNEvents.append("line")
                   .attr("x1", padding)
@@ -298,7 +300,7 @@
                   .attr("y", 0)
                   .attr("dy", 38)
                   .attr("text-anchor", "middle")
-                  .text(function(d){return comma(d);});
+                  .text(function(d){return comma_r(d);});
 
               chartNGoodJobs.append("line")
                   .attr("x1", padding)
@@ -394,7 +396,7 @@
                   .text(function(d){
                       var months = 0;
                       months = d/(2628000);
-                      return rounded(months);
+                      return comma_r(months);
                       });
 
               chartCpuTime.append("line")
