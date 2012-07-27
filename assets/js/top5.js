@@ -15,6 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function ( top5, $, undefined ) {
+    var throb = new Throbber({color: 'black', size: 90});
+    throb.appendTo( document.getElementById('throbber'));
+    throb.start();
+
     var url = encodeURI("http://mcplots-dev.cern.ch/api.php?");
     var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
     var width = 700;
@@ -49,6 +53,7 @@
 
     // Private methods
     function getTopUsers() {
+        throb.start();
         return $.ajax({
             url: url + "top_users=20",
             dataType: 'json',
@@ -56,6 +61,7 @@
     }
 
     function getName(id) {
+        throb.start();
         return $.ajax({
             url: boinc_api + id + "&format=xml",
                dataType: 'xml',
@@ -63,6 +69,7 @@
     }
 
     function getTotals() {
+        throb.start();
         return $.ajax({
             url: url + "totals",
             dataType: 'json',
@@ -136,6 +143,9 @@
               var y = d3.scale.ordinal()
                   .domain(nEvents)
                   .rangeBands([0, 20 * (length - 1)]);
+
+              throb.stop();
+              throb.stop();
 
               chartNEvents.selectAll("rect")
                   .data(nEvents)
@@ -374,6 +384,7 @@
                           else 
                             return n
                       })
+                  throb.stop();
                  });
               }
 
