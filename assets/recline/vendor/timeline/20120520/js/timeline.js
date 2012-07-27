@@ -4733,7 +4733,11 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 						VMM.attachElement(navigation.prevDate, _title);
 						VMM.attachElement(navigation.prevTitle, "");
 					} else {
-						VMM.attachElement(navigation.prevDate, VMM.Date.prettyDate(data[current_slide - 1].startdate));
+                        var tmp = VMM.Date.prettyDate(data[current_slide - 1].startdate)
+                        if (tmp.indexOf("at") != -1) {
+                            tmp = tmp.split(" at ")[0];
+                        }
+						VMM.attachElement(navigation.prevDate, tmp);
 						VMM.attachElement(navigation.prevTitle, _title);
 					}
 				} else {
@@ -4751,7 +4755,12 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 						VMM.attachElement(navigation.nextDate, _title);
 						VMM.attachElement(navigation.nextTitle, "");
 					} else {
-						VMM.attachElement(navigation.nextDate, VMM.Date.prettyDate(data[current_slide + 1].startdate) );
+                        var tmp = VMM.Date.prettyDate(data[current_slide + 1].startdate)
+                        if (tmp.indexOf("at") != -1) {
+                            tmp = tmp.split(" at ")[0];
+                        }
+
+						VMM.attachElement(navigation.nextDate, tmp);
 						VMM.attachElement(navigation.nextTitle, _title);
 					}
 				} else {
@@ -5065,8 +5074,15 @@ if (typeof VMM.Slider != 'undefined') {
 						}
 						
 						if (st != en) {
+                            if (st.indexOf("at") != -1) {
+                                st = st.split(" at ")[0];
+                            }
 							c.text += VMM.createElement("h2", "On " + st + " &mdash; " + en + tag, "date");
 						} else {
+                            if (st.indexOf("at") != -1) {
+                                st = st.split(" at ")[0];
+                            }
+
 							c.text += VMM.createElement("h2", "On " + st + tag, "date");
 						}
 					}
