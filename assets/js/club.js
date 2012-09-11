@@ -72,24 +72,7 @@ jQuery(function($) {
 
             $.map(users, function(u,index){
                 var date = u.date.split("-");
-                date[1] = parseInt(date[1]);
-                return u['date']= date[0] + ',' + date[1] + ',' + date[2] + ' 22:01';
-
-                return u['date']= u.date;
-            });
-            $.map(users, function(u,index){
-                var date = u.date.split("-");
-                date[1] = parseInt(date[1]);
-                return u['start']= date[0] + ',' + date[1] + ',' + date[2] + ' 22:01';
-
-                return u['start']= u.date;
-            });
-
-            $.map(users, function(u,index){
-                var date = u.date.split("-");
-                date[1] = parseInt(date[1])+1;
-                return u['end']= date[0] + ',' + date[1] + ',' + date[2] + ' 21:59';
-                //return u['end']=u.date;
+                return u['date']= date[0] + ',' + date[1] + ',' + date[2] + ' 00:01';
             });
 
             $.map(users, function(u){
