@@ -6037,7 +6037,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			hash_bookmark:			false,
 			start_at_end: 			false,
 			start_at_slide:			0,
-			start_zoom_adjust:		-3,
+			start_zoom_adjust:		2,
 			start_page: 			false,
 			api_keys: {
 				google:				"",
