@@ -15,9 +15,16 @@ jQuery(function($) {
 
     ];
 
+    var pct = 0;
+
     function update_loading_msg() {
         var item = Math.floor(Math.random()*loading_msg.length);
-        $("#loading").html(loading_msg[item]);
+        pct = pct + 3;
+        if (pct >= 70) {
+            pct = pct + 2;
+        }
+        $("#facts").html(loading_msg[item]);
+        $("#bar").css("width", pct + "%");
     }
 
     $("#loading").show();
@@ -113,20 +120,23 @@ jQuery(function($) {
                 return u['description'] = html;
             });
 
-            var dataset = new recline.Model.Dataset({records:users});
-            var $el = $('#timeline');
-            var grid = new recline.View.SlickGrid({
-                model: dataset,
-                el: $el
-            });
-            var timeline = new recline.View.Timeline({
-                model: dataset,
-                el: $el
-            });
-            timeline.visible = true;
             clearInterval(intervalID);
-            $("#loading").html("<strong>Done!</strong>");
-            $("#loading").delay(2000).fadeOut(800);
+            $("#bar").css("width","100%");
+            $("#facts").html("<strong>Data loaded!</strong>");
+            $("#loading").delay(2000).fadeOut(800, function(){
+                var dataset = new recline.Model.Dataset({records:users});
+                var $el = $('#timeline');
+                var grid = new recline.View.SlickGrid({
+                    model: dataset,
+                    el: $el
+                });
+                var timeline = new recline.View.Timeline({
+                    model: dataset,
+                    el: $el
+                });
+
+                timeline.visible = true;
+            });
         });
     });
 });

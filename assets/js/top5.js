@@ -27,9 +27,16 @@
 
     ];
 
+    var pct = 0;
+
     function update_loading_msg() {
         var item = Math.floor(Math.random()*loading_msg.length);
-        $("#loading").html(loading_msg[item]);
+        pct = pct + 10;
+        if (pct >= 80) {
+            pct = pct + 5;
+        }
+        $("#facts").html(loading_msg[item]);
+        $("#bar").css("width", pct + "%");
     }
 
 
@@ -159,9 +166,10 @@
                   .rangeBands([0, 20 * (length - 1)]);
 
               clearInterval(intervalID);
-              $("#loading").html("<strong>Done!</strong>");
+              $("#bar").css("width","100%");
+              $("#facts").html("<strong>Data loaded!</strong>");
+              $(".dataCharts").show();
               $("#loading").delay(2000).fadeOut(800);
-
               chartNEvents.selectAll("rect")
                   .data(nEvents)
                   .enter().append("rect")

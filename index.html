@@ -9,6 +9,7 @@
         <link href="assets/css/bootstrap.css" rel="stylesheet">
         <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/font-awesome.css">
+        <link rel="stylesheet" href="assets/css/style.css">
 
         <!-- Le javascript-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -36,10 +37,22 @@
             </div>
         </div>
 
-        <div class="container" style="padding-top:50px;">
-            <div id="loading" class="alert alert-success" style="display:none">
-                Loading data...
+        <div id="loading" style="display:none">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <div id="facts" class="alert alert-info">
+                            Loading data...
+                        </div>
+                        <div id="progress" class="progress progress-striped">
+                           <div id="bar" class="bar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="container" style="padding-top:50px;">
             <div id="welcome" class="modal hide fade">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -60,20 +73,20 @@
                     <a href="#" class="btn btn-success" data-dismiss="modal"><i class="icon icon-white icon-ok"></i> Close</a>
                 </div>
             </div>
-            <div class="row">
+            <div class="row dataCharts" style="display:none">
                 <h1 style="text-align:center;padding-bottom:50px;">Leaderboard of Test4Theory</h1>
                 <div class="span12 well">
                     <h2>Number of Events</h2>
                     <div id="nevents"></div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row dataCharts" style="display:none">
                 <div class="span12 well">
                     <h2>Number of processed Jobs</h2>
                     <div id="ngoodjobs"></div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row dataCharts" style="display:none">
                 <div class="span12 well">
                     <h2>Nominal CPU Time <small>in months</small></h2>
                     <div id="cputime"></div>
