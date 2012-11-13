@@ -31,9 +31,9 @@
 
     function update_loading_msg() {
         var item = Math.floor(Math.random()*loading_msg.length);
-        pct = pct + 10;
-        if (pct >= 80) {
-            pct = pct + 5;
+        pct = pct + 5;
+        if (pct >= 70) {
+            pct = pct + 2;
         }
         $("#facts").html(loading_msg[item]);
         $("#bar").css("width", pct + "%");
