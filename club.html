@@ -23,7 +23,6 @@
         <link rel="stylesheet" href="assets/recline/css/graph.css">
         <link rel="stylesheet" href="assets/recline/css/map.css">
         <link rel="stylesheet" href="assets/recline/css/multiview.css">
-        <link rel="stylesheet" href="assets/css/throbber.css">
         <!-- /Recline CSS components -->
 
         <!-- Custom CSS for the Data Explorer Online App -->
@@ -46,7 +45,6 @@
         <script type="text/javascript" src="assets/recline/vendor/slickgrid/2.0.1/slick.grid.min.js"></script>
         <script type="text/javascript" src="assets/recline/vendor/timeline/20120520/js/timeline.js"></script>
         <script type="text/javascript" src="assets/js/d3.v2.min.js"></script>
-        <script type="text/javascript" src="assets/js/throbber.js"></script>
 
         <!-- Recline -->
         <script type="text/javascript" src="assets/recline/dist/recline.js"></script>
@@ -73,13 +71,15 @@
         </div>
 
         <div class="container-fluid">
+            <div id="loading" class="alert alert-success" style="display:none">
+                Loading data...
+            </div>
             <div class="content">
                 <div class="row">
                     <div class="span12" style="text-align:center">
                         <h1>Test4Theory Billionaires Club</h1>
                     </div>
                 </div>
-                <div id="throbber"></div>
                 <hr>
                 <div id="timeline"></div>
             </div> <!-- /content -->

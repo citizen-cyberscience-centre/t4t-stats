@@ -15,9 +15,26 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function ( top5, $, undefined ) {
-    var throb = new Throbber({color: 'black', size: 90});
-    throb.appendTo( document.getElementById('throbber'));
-    throb.start();
+    var intervalID = 0;
+    var loading_msg = [
+        'Pre-cooling down to -193.2ºC the magnets with liquid nitrogen...',
+        'Freezing the magnets down to -271.3ºC with liquid helium...',
+        'Aligning 9300 magnets...',
+        'Starting 600 million collisions per second...',
+        'Creating an ultra high-vacuum cavity for particles to travel...',
+        'Sampling 600 million collisions per second...',
+        'Loading interesting <a href="http://public.web.cern.ch/public/en/lhc/Facts-en.html">CERN LHC facts</a>...',
+
+    ];
+
+    function update_loading_msg() {
+        var item = Math.floor(Math.random()*loading_msg.length);
+        $("#loading").html(loading_msg[item]);
+    }
+
+
+    $("#loading").show();
+    intervalID = setInterval(update_loading_msg, 2*1000);
 
     var url = encodeURI("http://mcplots-dev.cern.ch/api.php?");
     var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
@@ -53,7 +70,6 @@
 
     // Private methods
     function getTopUsers() {
-        throb.start();
         return $.ajax({
             url: url + "top_users=20",
             dataType: 'json',
@@ -61,7 +77,6 @@
     }
 
     function getName(id) {
-        throb.start();
         return $.ajax({
             url: boinc_api + id + "&format=xml",
                dataType: 'xml',
@@ -69,7 +84,6 @@
     }
 
     function getTotals() {
-        throb.start();
         return $.ajax({
             url: url + "totals",
             dataType: 'json',
@@ -144,8 +158,9 @@
                   .domain(nEvents)
                   .rangeBands([0, 20 * (length - 1)]);
 
-              throb.stop();
-              throb.stop();
+              clearInterval(intervalID);
+              $("#loading").html("<strong>Done!</strong>");
+              $("#loading").delay(2000).fadeOut(800);
 
               chartNEvents.selectAll("rect")
                   .data(nEvents)
@@ -384,7 +399,7 @@
                           else 
                             return n
                       })
-                  throb.stop();
+                 $("#loading").hide();
                  });
               }
 
