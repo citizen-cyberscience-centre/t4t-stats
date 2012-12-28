@@ -15,7 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function ( top5, $, undefined ) {
-    var intervalID = 0;
+    var barProgress = $.Deferred();
+    var steps = 0;
+    var prevPct = 0;
+    var totalSteps = 22;
     var loading_msg = [
         'Pre-cooling down to -193.2ºC the magnets with liquid nitrogen...',
         'Freezing the magnets down to -271.3ºC with liquid helium...',
@@ -27,21 +30,34 @@
 
     ];
 
-    var pct = 0;
-
-    function update_loading_msg() {
-        var item = Math.floor(Math.random()*loading_msg.length);
-        pct = pct + 5;
-        if (pct >= 70) {
-            pct = pct + 2;
+    barProgress.progress(function(step){
+        // Compute the completed pct
+        //steps = steps + step;
+        if (steps === totalSteps) {
+            barProgress.resolve();
         }
-        $("#facts").html(loading_msg[item]);
-        $("#bar").css("width", pct + "%");
-    }
+        else {
+            var pctComplete = (steps/totalSteps) * 100;
+            // Pick a random fact
+            var item = Math.floor(Math.random()*loading_msg.length);
+            // Show random fact
+            $("#facts").html(loading_msg[item]);
+            if (prevPct < pctComplete.toFixed(0)) {
+                // Update the progress bar
+                $("#bar").css("width", pctComplete.toFixed(0) + "%");
+                prevPct = pctComplete.toFixed(0);
+            }
+        }
+    });
 
+    barProgress.done(function(){
+        $("#bar").css("width","100%");
+        $("#facts").html("<strong>Data loaded!</strong>");
+        $(".dataCharts").show();
+        $("#loading").delay(2000).fadeOut(800);
+    });
 
     $("#loading").show();
-    intervalID = setInterval(update_loading_msg, 2*1000);
 
     var url = encodeURI("http://mcplots-dev.cern.ch/api.php?");
     var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
@@ -77,24 +93,36 @@
 
     // Private methods
     function getTopUsers() {
-        return $.ajax({
+        var xhr = $.ajax({
             url: url + "top_users=20",
             dataType: 'json',
             })
+        xhr.done(function(){
+            barProgress.notify(steps++);
+        });
+        return xhr;
     }
 
     function getName(id) {
-        return $.ajax({
+        var xhr = $.ajax({
             url: boinc_api + id + "&format=xml",
                dataType: 'xml',
         });
+        xhr.done(function(){
+            barProgress.notify(steps++);
+        });
+        return xhr;
     }
 
     function getTotals() {
-        return $.ajax({
+        var xhr = $.ajax({
             url: url + "totals",
             dataType: 'json',
-            })
+            });
+        xhr.done(function(){
+            barProgress.notify(steps++);
+        });
+        return xhr;
     }
 
     function ascending(a, b) {
@@ -165,7 +193,6 @@
                   .domain(nEvents)
                   .rangeBands([0, 20 * (length - 1)]);
 
-              clearInterval(intervalID);
               $("#bar").css("width","100%");
               $("#facts").html("<strong>Data loaded!</strong>");
               $(".dataCharts").show();

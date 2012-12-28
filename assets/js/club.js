@@ -1,9 +1,12 @@
 jQuery(function($) {
+    var barProgress = $.Deferred();
+    var steps = 0;
+    var prevPct = 0;
+    var totalSteps = 200;
 
     var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
     var mcplots_user = "http://mcplots-dev.cern.ch/api.php?user=";
 
-    var intervalID = 0;
     var loading_msg = [
         'Pre-cooling down to -193.2ºC the magnets with liquid nitrogen...',
         'Freezing the magnets down to -271.3ºC with liquid helium...',
@@ -17,37 +20,62 @@ jQuery(function($) {
 
     var pct = 0;
 
-    function update_loading_msg() {
-        var item = Math.floor(Math.random()*loading_msg.length);
-        pct = pct + 3;
-        if (pct >= 70) {
-            pct = pct + 2;
+    barProgress.progress(function(step){
+        // Compute the completed pct
+        //steps = steps + step;
+        if (steps === totalSteps) {
+            barProgress.resolve();
         }
-        $("#facts").html(loading_msg[item]);
-        $("#bar").css("width", pct + "%");
-    }
+        else {
+            var pctComplete = (steps/totalSteps) * 100;
+            // Pick a random fact
+            var item = Math.floor(Math.random()*loading_msg.length);
+            // Show random fact
+            $("#facts").html(loading_msg[item]);
+            if (prevPct < pctComplete.toFixed(0)) {
+                // Update the progress bar
+                $("#bar").css("width", pctComplete.toFixed(0) + "%");
+                prevPct = pctComplete.toFixed(0);
+            }
+        }
+    });
+
+    barProgress.done(function(){
+        $("#bar").css("width","100%");
+        $("#facts").html("<strong>Data loaded!</strong>");
+        $(".dataCharts").show();
+        $("#loading").delay(2000).fadeOut(800);
+    });
+
 
     $("#loading").show();
-    intervalID = setInterval(update_loading_msg, 3*1000);
 
     var mcplots_api = "http://mcplots-dev.cern.ch/api.php?achievement=n_events&value=1000000000";
     function getName(id) {
         var dfr = $.Deferred();
-        $.ajax({
+        var xhr = $.ajax({
             url: boinc_api + id + "&format=xml",
             dataType: 'xml',
             success: dfr.resolve
         });
+        xhr.done(function(){
+            barProgress.notify(steps++);
+        })
         return dfr.promise();
     }
 
     function getStats(id) {
         var dfr = $.Deferred();
-        $.ajax({
+        var xhr = $.ajax({
             url: mcplots_user + id,
             dataType: 'json',
             success: dfr.resolve
         });
+
+        xhr.done(function(){
+            barProgress.notify(steps++);
+        })
+
         return dfr.promise();
     }
 
@@ -66,6 +94,10 @@ jQuery(function($) {
     getBillionaires().done(function(users){
         var i=0;
         var l=users.length;
+        totalSteps = l + 1;
+        console.log("New totalSteps")
+        console.log(totalSteps);
+        barProgress.notify(steps++);
         users = users.splice(1,l-1);
         var l=users.length;
         var promises = [];
@@ -120,7 +152,6 @@ jQuery(function($) {
                 return u['description'] = html;
             });
 
-            clearInterval(intervalID);
             $("#bar").css("width","100%");
             $("#facts").html("<strong>Data loaded!</strong>");
             $("#loading").delay(2000).fadeOut(800, function(){
