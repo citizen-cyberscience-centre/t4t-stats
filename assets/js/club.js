@@ -54,7 +54,7 @@
         var label = "Billionares";
         if (type == "10giga") {
             value = value * 10; 
-            label = "Billionares (more than 10G events)";
+            label = "Super Billionares";
         }
         var mcplots_api = "http://mcplots-dev.cern.ch/api.php?achievement=n_events&value=" + value.toString();
         function getName(id) {
