@@ -50,13 +50,14 @@
 
         $("#loading").show();
 
-        var value = 1000000000;
+        var value = "billionairs";
         var label = "Billionares";
         if (type == "10giga") {
-            value = value * 10; 
+            value = "super-billionairs"; 
             label = "Super Billionares";
         }
         var mcplots_api = "http://mcplots-dev.cern.ch/api.php?achievement=n_events&value=" + value.toString();
+        var mcplots_api = "http://mcplots-dev.cern.ch/fast/?id=" + value;
         function getName(id) {
             var dfr = $.Deferred();
             var xhr = $.ajax({
