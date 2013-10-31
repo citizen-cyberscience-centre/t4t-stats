@@ -456,9 +456,9 @@
                   .attr("dy", 38)
                   .attr("text-anchor", "middle")
                   .text(function(d){
-                      var months = 0;
-                      months = d/(2628000);
-                      return comma_r(months);
+                      var years = 0;
+                      years = d/(31536000);
+                      return comma_r(years);
                       });
 
               chartCpuTime.append("line")
