@@ -399,9 +399,9 @@
                   .attr("text-anchor", "end")
                   .style("fill", "white")
                   .text(function(d){ 
-                      var months = 0;
-                      months = d/(2628000);
-                      return rounded(months)+"m";
+                      var years = 0;
+                      years = d/(31536000);
+                      return rounded(years)+"y";
                   });
 
               var i=0;
