@@ -61,7 +61,7 @@
 
     //var url = encodeURI("http://mcplots-dev.cern.ch/api.php?");
     var url = encodeURI("http://mcplots-dev.cern.ch/fast/?id");
-    var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
+    var boinc_api = "http://lhcathome2.cern.ch/vLHCathome/show_user.php?userid=";
     var width = 700;
     var height = 430;
     var padding = 20;

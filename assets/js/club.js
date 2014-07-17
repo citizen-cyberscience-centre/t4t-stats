@@ -1,10 +1,18 @@
     function createTimeLine(type) {
+        Number.prototype.pad = function(size) {
+              var s = String(this);
+              if(typeof(size) !== "number"){size = 2;}
+        
+              while (s.length < size) {s = "0" + s;}
+              return s;
+            }
+
         var barProgress = $.Deferred();
         var steps = 0;
         var prevPct = 0;
         var totalSteps = 200;
 
-        var boinc_api = "http://lhcathome2.cern.ch/test4theory/show_user.php?userid=";
+        var boinc_api = "http://lhcathome2.cern.ch/vLHCathome/show_user.php?userid=";
         var mcplots_user = "http://mcplots-dev.cern.ch/api.php?user=";
 
         var loading_msg = [
@@ -131,7 +139,26 @@
                 });
 
 
+                var dates = [];
                 $.map(users, function(u,index){
+                    if (dates.indexOf(u.date) != -1) {
+                        console.log("Duplicate");
+                        console.log(u.date);
+                        var date = u.date.split("-");
+                        for(i=parseInt(date[2], 10); i<30; i++) {
+                            var new_date = date[0] + "-" + date[1] + "-" + i.pad();
+                            if (dates.indexOf(new_date) == -1) {
+                                u.date = new_date;
+                                console.log(u.date);
+                                dates.push(u.date);
+                                break;
+                            }
+                        }
+                        
+                    }
+                    else {
+                        dates.push(u.date);
+                    }
                     var date = u.date.split("-");
                     return u['date']= date[0] + ',' + date[1] + ',' + date[2] + ' 00:01';
                 });
