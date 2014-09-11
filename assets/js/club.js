@@ -115,6 +115,7 @@
             barProgress.notify(steps++);
             users = users.splice(1,l-1);
             var l=users.length;
+            $("#n_members").text(l);
             var promises = [];
             for(i=0;i<l;i++) {
                 promises.push(getName(users[i].user_id))
