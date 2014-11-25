@@ -59,8 +59,8 @@
 
     $("#loading").show();
 
-    //var url = encodeURI("http://mcplots-dev.cern.ch/api.php?");
-    var url = encodeURI("http://mcplots-dev.cern.ch/fast/?id");
+    var url = encodeURI("http://mcplots-dev.cern.ch/api.php");
+    //var url = encodeURI("http://mcplots-dev.cern.ch/fast/?id");
     var boinc_api = "http://lhcathome2.cern.ch/vLHCathome/show_user.php?userid=";
     var width = 700;
     var height = 430;
@@ -95,7 +95,7 @@
     // Private methods
     function getTopUsers() {
         var xhr = $.ajax({
-            url: url + "=top-users-20",
+            url: url + "?top_users=20",
             dataType: 'json',
             })
         xhr.done(function(){
@@ -117,7 +117,7 @@
 
     function getTotals() {
         var xhr = $.ajax({
-            url: url + "=totals",
+            url: url + "?totals",
             dataType: 'json',
             });
         xhr.done(function(){
